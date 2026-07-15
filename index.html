@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohan Kumbar — AI/ML & Full-Stack Engineer</title>
+<meta name="description" content="Mohan Kumbar — B.Tech CSE student building AI agent orchestration systems and full-stack applications.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B1220;
+    --surface:#121B2E;
+    --surface-2:#17233A;
+    --line:#243252;
+    --teal:#5EEAD4;
+    --amber:#F5A65B;
+    --text:#E8EDF4;
+    --muted:#8592A6;
+    --radius:10px;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.02em;
+    line-height:1.1;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background:var(--teal); color:var(--bg); }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(11,18,32,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1080px;
+    margin:0 auto;
+    padding:18px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .nav-logo{
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;
+    color:var(--teal);
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    list-style:none;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .nav-links a{ transition:color .2s; }
+  .nav-links a:hover{ color:var(--text); }
+
+  .nav-toggle{ display:none; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding-top:80px;
+    overflow:hidden;
+  }
+  #hero-canvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    opacity:0.55;
+  }
+  .hero-content{
+    position:relative;
+    z-index:2;
+    max-width:640px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    color:var(--teal);
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:8px; height:8px;
+    background:var(--teal);
+    border-radius:50%;
+    box-shadow:0 0 8px var(--teal);
+  }
+  .hero h1{
+    font-size:clamp(40px, 6vw, 64px);
+    margin-bottom:16px;
+  }
+  .hero h1 span{ color:var(--teal); }
+  .hero p{
+    font-size:18px;
+    color:var(--muted);
+    max-width:520px;
+    margin-bottom:32px;
+  }
+  .hero-cta{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    padding:13px 24px;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    transition:all .2s;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background:var(--teal);
+    color:var(--bg);
+    border-color:var(--teal);
+    font-weight:600;
+  }
+  .btn-primary:hover{ background:#7ff2df; }
+  .btn-ghost{
+    color:var(--text);
+    background:transparent;
+  }
+  .btn-ghost:hover{
+    border-color:var(--teal);
+    color:var(--teal);
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{ padding:110px 0; border-top:1px solid var(--line); }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:48px;
+  }
+  .section-num{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--amber);
+    font-size:14px;
+  }
+  .section-head h2{ font-size:32px; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:start;
+  }
+  .about-text p{
+    color:var(--muted);
+    font-size:17px;
+    margin-bottom:20px;
+  }
+  .about-text strong{ color:var(--text); font-weight:600; }
+  .about-facts{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:24px;
+  }
+  .fact-row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+    color:var(--muted);
+  }
+  .fact-row:last-child{ border-bottom:none; }
+  .fact-row span:last-child{ color:var(--text); text-align:right; }
+
+  /* ---------- SKILLS ---------- */
+  .manifest{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .manifest-header{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--muted);
+    padding:16px 24px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    gap:8px;
+  }
+  .manifest-body{ padding:28px 24px; }
+  .skill-group{ margin-bottom:24px; }
+  .skill-group:last-child{ margin-bottom:0; }
+  .skill-key{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--amber);
+    margin-bottom:12px;
+  }
+  .skill-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    padding:6px 12px;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:6px;
+    color:var(--text);
+    transition:border-color .2s, color .2s;
+  }
+  .tag:hover{ border-color:var(--teal); color:var(--teal); }
+
+  /* ---------- PROJECTS ---------- */
+  .projects-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .project-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    transition:border-color .2s, transform .2s;
+  }
+  .project-card:hover{
+    border-color:var(--teal);
+    transform:translateY(-3px);
+  }
+  .project-card.featured{
+    grid-column:1 / -1;
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:32px;
+    align-items:center;
+  }
+  .project-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .project-desc{
+    color:var(--muted);
+    font-size:15px;
+    margin-bottom:18px;
+    flex-grow:1;
+  }
+  .project-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:18px;
+  }
+  .project-tags .tag{ font-size:12px; padding:4px 10px; }
+  .project-link{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--teal);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .project-link svg{ transition:transform .2s; }
+  .project-link:hover svg{ transform:translate(2px,-2px); }
+  .featured-badge{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--amber);
+    letter-spacing:0.08em;
+    margin-bottom:12px;
+    display:block;
+  }
+  .featured-visual{
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:8px;
+    height:160px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .featured-visual svg{ width:80%; height:80%; }
+
+  /* ---------- EXPERIENCE ---------- */
+  .exp-list{ display:flex; flex-direction:column; }
+  .exp-item{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:24px;
+    padding:24px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .exp-item:first-child{ padding-top:0; }
+  .exp-item:last-child{ border-bottom:none; }
+  .exp-date{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .exp-role{ font-weight:600; font-size:17px; margin-bottom:4px; }
+  .exp-org{ color:var(--teal); font-size:14px; margin-bottom:8px; }
+  .exp-desc{ color:var(--muted); font-size:15px; }
+
+  .cert-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:40px;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    text-align:center;
+  }
+  .contact h2{
+    font-size:clamp(32px, 5vw, 48px);
+    margin-bottom:20px;
+  }
+  .contact p{
+    color:var(--muted);
+    font-size:17px;
+    max-width:480px;
+    margin:0 auto 36px;
+  }
+  .contact-links{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:28px 0;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  @media (max-width: 780px){
+    .nav-links{ display:none; }
+    .about-grid, .projects-grid{ grid-template-columns:1fr; }
+    .project-card.featured{ grid-template-columns:1fr; }
+    .exp-item{ grid-template-columns:1fr; gap:6px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">mohan.dev</div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <canvas id="hero-canvas"></canvas>
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="eyebrow mono">$ whoami</div>
+      <h1>Mohan Kumbar<br>builds <span>routing logic</span> for AI systems.</h1>
+      <p>B.Tech CSE student focused on AI agent orchestration and full-stack engineering — turning generative AI concepts into deployable, production-shaped systems.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View projects →</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num mono">01</span>
+      <h2>About</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a Computer Science undergraduate who works across the stack — from <strong>orchestrating AI agents</strong> with intelligent query routing, to shipping <strong>real-time web applications</strong> people actually use.</p>
+        <p>My flagship project, <strong>Nasiko</strong>, is a cloud-native control plane for AI agents — built with FastAPI, LangChain, Docker, and Kubernetes, with Kong API Gateway handling routing and real-time LLM observability underneath.</p>
+        <p>Alongside that, I've interned in <strong>Generative AI</strong> and <strong>AI-driven sustainability</strong>, and I care about writing systems that scale past a demo — not just ones that work once.</p>
+      </div>
+      <div class="about-facts mono">
+        <div class="fact-row"><span>university</span><span>Alliance University</span></div>
+        <div class="fact-row"><span>focus</span><span>AI/ML · Full-Stack</span></div>
+        <div class="fact-row"><span>internships</span><span>2</span></div>
+        <div class="fact-row"><span>projects_shipped</span><span>4</span></div>
+        <div class="fact-row"><span>based_in</span><span>Bengaluru, IN</span></div>
+        <div class="fact-row"><span>status</span><span style="color:var(--teal)">open_to_intern_roles</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num mono">02</span>
+      <h2>Skills</h2>
+    </div>
+    <div class="manifest">
+      <div class="manifest-header">
+        <span>📄</span><span>stack.json</span>
+      </div>
+      <div class="manifest-body">
+        <div class="skill-group">
+          <div class="skill-key">"languages"</div>
+          <div class="skill-tags">
+            <span class="tag">C</span><span class="tag">C++</span><span class="tag">Java</span><span class="tag">Python</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-key">"web_development"</div>
+          <div class="skill-tags">
+            <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-key">"ai_ml"</div>
+          <div class="skill-tags">
+            <span class="tag">TensorFlow</span><span class="tag">Scikit-learn</span><span class="tag">OpenCV</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">LangChain</span><span class="tag">NLP</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-key">"cloud_devops"</div>
+          <div class="skill-tags">
+            <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">FastAPI</span><span class="tag">Kong API Gateway</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-key">"tools"</div>
+          <div class="skill-tags">
+            <span class="tag">Git / GitHub</span><span class="tag">MS Excel</span><span class="tag">PowerPoint</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num mono">03</span>
+      <h2>Projects</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <div>
+          <span class="featured-badge mono">FLAGSHIP PROJECT</span>
+          <div class="project-name">Nasiko — Enterprise AI Agent Control Plane</div>
+          <div class="project-desc">A cloud-native AI agent orchestration platform built on microservices, featuring intelligent query routing with LangChain and scalable infrastructure powered by Docker, Kubernetes, and Kong API Gateway, with real-time LLM observability.</div>
+          <div class="project-tags">
+            <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">LangChain</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Kong API</span>
+          </div>
+          <a href="https://smart-agent-upeb.vercel.app/dashboard" class="project-link" target="_blank" rel="noopener">
+            View live demo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </a>
+        </div>
+        <div class="featured-visual">
+          <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#5EEAD4" stroke-width="1.5" opacity="0.6" fill="none">
+              <path d="M20 70 L90 70 L90 30 L160 30"/>
+              <path d="M90 70 L90 110 L160 110"/>
+              <path d="M90 70 L160 70"/>
+            </g>
+            <g fill="#5EEAD4">
+              <circle cx="20" cy="70" r="5"/>
+              <circle cx="90" cy="70" r="6"/>
+              <circle cx="160" cy="30" r="5"/>
+              <circle cx="160" cy="70" r="5"/>
+              <circle cx="160" cy="110" r="5"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Smart Traffic &amp; Parking (TraffiTech)</div>
+        <div class="project-desc">Real-time traffic and parking management solution with live map tracking, secure payments, and authenticated access.</div>
+        <div class="project-tags">
+          <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Socket.io</span><span class="tag">Stripe</span>
+        </div>
+        <a href="https://trafitech-git-main-10-mohans-projects.vercel.app" class="project-link" target="_blank" rel="noopener">
+          View live demo
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Emotion Sense</div>
+        <div class="project-desc">Real-time emotion detection app with interactive emotion trend visualization, built for live camera input.</div>
+        <div class="project-tags">
+          <span class="tag">React</span><span class="tag">face-api.js</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Smart Waste Segregator</div>
+        <div class="project-desc">AI-powered waste classification system with voice input and automated reporting.</div>
+        <div class="project-tags">
+          <span class="tag">TensorFlow</span><span class="tag">OpenCV</span><span class="tag">Streamlit</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num mono">04</span>
+      <h2>Experience</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-date mono">2024</div>
+        <div>
+          <div class="exp-role">AIML Intern</div>
+          <div class="exp-org">Elythra Edufyi Tech Solutions</div>
+          <div class="exp-desc">Learned Generative AI, Neural Networks, and NLP; participated in AI project discussions and implementations.</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-date mono">2024</div>
+        <div>
+          <div class="exp-role">AI &amp; Sustainability Intern</div>
+          <div class="exp-org">IBM — 1M1B Program</div>
+          <div class="exp-desc">Worked on AI-driven sustainability initiatives and ethical technology solutions.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-tags">
+      <span class="tag">Google AI Essentials</span>
+      <span class="tag">Foundations of UX Design</span>
+      <span class="tag">C++ for C Programmers</span>
+      <span class="tag">NPTEL — Data Structures &amp; Algorithms</span>
+      <span class="tag">Getting Started with Generative AI</span>
+      <span class="tag">Data Analytics for Machine Learning</span>
+      <span class="tag">Oracle Java Certified Foundations Associate</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <span class="eyebrow mono" style="justify-content:center">$ connect --with mohan</span>
+    <h2>Let's build something.</h2>
+    <p>Open to software engineering internships. Reach out directly, or find me on GitHub and LinkedIn.</p>
+    <div class="contact-links">
+      <a href="mailto:Mohan191024@gmail.com" class="btn btn-primary">Email me</a>
+      <a href="https://github.com/10-Mohan" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+      <a href="https://www.linkedin.com/in/mohan-kumbar-709739321/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Mohan Kumbar — built with HTML, CSS &amp; a bit of routing logic.</div>
+</footer>
+
+<script>
+  // Ambient node-routing animation for hero — mirrors the "intelligent query routing" idea
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, nodes, pulses;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize(){
+    w = canvas.width = canvas.offsetWidth * devicePixelRatio;
+    h = canvas.height = canvas.offsetHeight * devicePixelRatio;
+  }
+
+  function buildGraph(){
+    const cx = w * 0.72, cy = h * 0.5;
+    nodes = [
+      { x: w*0.30, y: h*0.32, r: 4 },
+      { x: w*0.30, y: h*0.68, r: 4 },
+      { x: cx, y: cy, r: 7, hub:true },
+      { x: w*0.90, y: h*0.22, r: 4 },
+      { x: w*0.90, y: h*0.50, r: 4 },
+      { x: w*0.90, y: h*0.78, r: 4 },
+    ];
+    const hub = nodes[2];
+    pulses = [];
+    const edges = [
+      [nodes[0], hub],[nodes[1], hub],
+      [hub, nodes[3]],[hub, nodes[4]],[hub, nodes[5]]
+    ];
+    edges.forEach((e,i)=>{
+      pulses.push({ edge:e, t: Math.random(), speed: 0.003 + Math.random()*0.002 });
+    });
+    return edges;
+  }
+
+  let edges;
+  function init(){
+    resize();
+    edges = buildGraph();
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    ctx.strokeStyle = 'rgba(94,234,212,0.18)';
+    ctx.lineWidth = 1.5 * devicePixelRatio;
+    edges.forEach(([a,b])=>{
+      ctx.beginPath();
+      ctx.moveTo(a.x,a.y);
+      ctx.lineTo(b.x,b.y);
+      ctx.stroke();
+    });
+
+    nodes.forEach(n=>{
+      ctx.beginPath();
+      ctx.fillStyle = n.hub ? '#F5A65B' : 'rgba(94,234,212,0.8)';
+      ctx.arc(n.x, n.y, n.r*devicePixelRatio, 0, Math.PI*2);
+      ctx.fill();
+    });
+
+    if(!reduceMotion){
+      pulses.forEach(p=>{
+        p.t += p.speed;
+        if(p.t > 1) p.t = 0;
+        const [a,b] = p.edge;
+        const x = a.x + (b.x-a.x)*p.t;
+        const y = a.y + (b.y-a.y)*p.t;
+        ctx.beginPath();
+        ctx.fillStyle = '#5EEAD4';
+        ctx.shadowColor = '#5EEAD4';
+        ctx.shadowBlur = 8;
+        ctx.arc(x,y,3*devicePixelRatio,0,Math.PI*2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+      requestAnimationFrame(draw);
+    }
+  }
+
+  window.addEventListener('resize', init);
+  init();
+  draw();
+</script>
+
+</body>
+</html>
